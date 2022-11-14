@@ -11,13 +11,13 @@ function getData() {
   return new Promise((resolve, reject) => {
     let movies = []
     var firstHalf = []
-    var secondHalf = []
+    // var secondHalf = []
     fs.readFile('sample.txt', 'utf8', async function (err, data) {
       if (err) return reject(err)
       movies = data.split('\n').map((item) => item.substring(0, 9))
-      var half = Math.ceil(movies.length / 10)
+      // var half = Math.ceil(movies.length / 10)
       firstHalf = movies.slice(0, 10)
-      secondHalf = movies.slice(half)
+      // secondHalf = movies.slice(half)
 
       const respPromises = firstHalf.map((id) => makeFetch(id))
       const respArrays = await Promise.all(respPromises)
