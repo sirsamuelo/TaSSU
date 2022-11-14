@@ -16,6 +16,8 @@ function getData() {
       if (err) return reject(err)
       movies = data.split('\n').map((item) => item.substring(0, 9))
       // var half = Math.ceil(movies.length / 10)
+
+      //Here you can define how many data you want to be inserted...now it is set to 10 movies
       firstHalf = movies.slice(0, 10)
       // secondHalf = movies.slice(half)
 
