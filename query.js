@@ -4,12 +4,16 @@ const createGenresTable = async () => {
 	try {
 		const client = await getClient();
 		const createReleaseTable = `
-    CREATE TABLE IF NOT EXISTS Genres as
-select id,released from movies;
+    CREATE TABLE IF NOT EXISTS genres as
+select genre from movies;
   `;
 		const res = await client.query(createReleaseTable);
 		const addPrimaryKey = `
-		alter table Genres add primary key (id);
+		CREATE SEQUENCE genre_seq;
+
+		ALTER TABLE genres
+		ADD COLUMN id_genre INTEGER PRIMARY KEY DEFAULT nextval('genre_seq');
+
 `;
 		await client.query(addPrimaryKey);
 		await client.end();
@@ -23,12 +27,15 @@ const createReleaseDateTable = async () => {
 	try {
 		const client = await getClient();
 		const createReleaseDateTable = `
-    CREATE TABLE IF NOT EXISTS release_Date as
-select id,released,year from movies;
+    CREATE TABLE IF NOT EXISTS release_date as
+select released,year from movies;
   `;
 		await client.query(createReleaseDateTable);
 		const addPrimaryKey = `
-		alter table release_Date add primary key (id);
+		CREATE SEQUENCE release_date_seq;
+		ALTER TABLE release_date
+ADD COLUMN id_released_date INTEGER PRIMARY KEY DEFAULT nextval('release_date_seq');
+
 `;
 		await client.query(addPrimaryKey);
 		await client.end();
@@ -42,12 +49,14 @@ const createLanguagetable = async () => {
 	try {
 		const client = await getClient();
 		const createLanguagetable = `
-    CREATE TABLE IF NOT EXISTS language as
-select id,language from movies;
+    CREATE TABLE IF NOT EXISTS lang as
+select language from movies;
   `;
 		await client.query(createLanguagetable);
 		const addPrimaryKey = `
-		alter table language add primary key (id);
+		CREATE SEQUENCE language_seq;
+		ALTER TABLE lang
+		ADD COLUMN id_language INTEGER PRIMARY KEY DEFAULT nextval('language_seq');
 `;
 		await client.query(addPrimaryKey);
 		await client.end();
@@ -62,11 +71,13 @@ const createCrewTable = async () => {
 		const client = await getClient();
 		const createCrewTable = `
     CREATE TABLE IF NOT EXISTS crew as
-select id,director,writer from movies;
+select director,writer from movies;
   `;
 		await client.query(createCrewTable);
 		const addPrimaryKey = `
-		alter table crew add primary key (id);
+		CREATE SEQUENCE crew_seq;
+		ALTER TABLE crew
+		ADD COLUMN id_crew INTEGER PRIMARY KEY DEFAULT nextval('crew_seq');
 `;
 		await client.query(addPrimaryKey);
 		await client.end();
@@ -80,7 +91,30 @@ const moviesTable = async () => {
 	try {
 		const client = await getClient();
 		const createMoviesTable = `
-    CREATE TABLE IF NOT EXISTS movieTitles as
+    CREATE TABLE IF NOT EXISTS movies_table as
+select title,plot from movies;
+  `;
+		await client.query(createMoviesTable);
+		const addPrimaryKey = `
+		CREATE SEQUENCE movies_seq;
+
+		ALTER TABLE movies_table
+		ADD COLUMN id_movie INTEGER PRIMARY KEY DEFAULT nextval('movies_seq');
+
+`;
+		await client.query(addPrimaryKey);
+		await client.end();
+	} catch (error) {
+		console.error(error);
+		return false;
+	}
+};
+
+const movieFactsTable = async () => {
+	try {
+		const client = await getClient();
+		const createMoviesTable = `
+    CREATE TABLE IF NOT EXISTS movie_facts as
 select id,title,plot from movies;
   `;
 		await client.query(createMoviesTable);
@@ -95,8 +129,9 @@ select id,title,plot from movies;
 	}
 };
 
-createGenresTable();
-createReleaseDateTable();
-createLanguagetable();
-createCrewTable();
-moviesTable();
+//createGenresTable();
+// createLanguagetable();
+// createCrewTable();
+// moviesTable();
+
+// createReleaseDateTable();

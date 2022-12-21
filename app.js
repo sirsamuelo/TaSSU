@@ -3,7 +3,7 @@ import fs from 'fs';
 import getClient from './getClient.js';
 
 async function makeFetch(id) {
-	const resp = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=9edd2bce`);
+	const resp = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=73d024eb`);
 	return resp.json();
 }
 //9edd2bce
