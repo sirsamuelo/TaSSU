@@ -95,8 +95,8 @@ select id,title,plot from movies;
 	}
 };
 
-// createGenresTable();
-// createReleaseDateTable();
-// createLanguagetable();
-// createCrewTable();
-// moviesTable();
+createGenresTable();
+createReleaseDateTable();
+createLanguagetable();
+createCrewTable();
+moviesTable();
